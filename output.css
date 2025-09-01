@@ -35,6 +35,8 @@ h1 {
 }
 
 .container {
+  position: relative;
+  top: 4.5rem;
   max-width: 500px;
   background-color: hsl(0, 0%, 100%);
   padding: 1.25rem 1.5rem;
@@ -57,7 +59,7 @@ input:focus, textarea:focus {
   transition: border 0.2 ease, box-shadow 0.2s ease;
 }
 
-input:invalid, textarea:invalid {
+input.invalid, textarea.invalid {
   outline: 1px solid hsl(0, 66%, 54%);
   transition: border 0.2 ease, box-shadow 0.2s ease;
 }
@@ -78,7 +80,7 @@ input:invalid, textarea:invalid {
   font-size: 1rem;
   font-family: "Karla";
   font-weight: 400;
-  color: hsl(186, 15%, 59%);
+  color: hsl(187, 24%, 22%);
 }
 .form-group textarea {
   resize: vertical;
@@ -86,16 +88,32 @@ input:invalid, textarea:invalid {
 }
 
 .radio-class {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem;
   border: 1px solid hsl(186, 15%, 59%);
   border-radius: 5px;
-  padding: 1rem;
-  margin: 0.5rem 0;
+  margin: 0.75rem 0;
+  width: 100%;
 }
 .radio-class input {
   margin-right: 0.5rem;
 }
-.radio-class label::after {
-  content: none;
+.radio-class label {
+  margin: 0;
+}
+
+.general-container,
+.support-container {
+  background-color: white;
+  outline: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.general-container.selected,
+.support-container.selected {
+  background-color: hsl(148, 38%, 91%);
+  outline: 1px solid hsl(169, 82%, 27%);
 }
 
 .error-message {
@@ -105,9 +123,7 @@ input:invalid, textarea:invalid {
 }
 
 .consent-container {
-  display: flex;
-  align-items: center;
-  margin: 1.5rem 0;
+  padding-left: 0.5rem;
 }
 .consent-container input[type=checkbox] {
   -webkit-appearance: none;
@@ -155,20 +171,20 @@ input:invalid, textarea:invalid {
 
 .toast {
   position: fixed;
-  top: 25px;
-  right: 25px;
-  max-width: 300px;
+  top: 15px;
+  margin: 0 auto;
+  max-width: 500px;
   background: #fff;
-  padding: 0.5rem;
+  padding: 1.25rem;
   border-radius: 4px;
   box-shadow: -1px 1px 10px rgba(0, 0, 0, 0.3);
   z-index: 1023;
-  animation: slideInRight 0.3s ease-in-out forwards, fadeOut 0.5s ease-in-out forwards 3s;
+  animation: slideInDown 0.3s ease-in-out forwards, fadeOut 0.5s ease-in-out forwards 3s;
   transform: translateX(110%);
 }
 
 .toast.closing {
-  animation: slideOutRight 0.5s ease-in-out forwards;
+  animation: slideOutDown 0.5s ease-in-out forwards;
 }
 
 .toast-progress {
@@ -184,50 +200,61 @@ input:invalid, textarea:invalid {
 
 .toast-content-wrapper {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+}
+
+.toast-header {
+  display: flex;
+  padding: 0.25rem;
   align-items: center;
 }
 
 .toast-icon {
-  padding: 0.35rem 0.5rem;
-  font-size: 1.5rem;
+  margin-right: 0.35rem;
 }
 
 .toast-message {
   flex: 1;
-  font-size: 0.9rem;
-  color: #000000;
-  padding: 0.5rem;
+  font-size: 1rem;
+  color: white;
+  font-weight: bold;
+  font-size: large;
+}
+
+.toast-paragraph {
+  flex: 1;
+  font-size: 1rem;
+  color: hsl(148, 38%, 91%);
 }
 
 .toast.toast-success {
-  background: #95eab8;
+  background: hsl(187, 24%, 22%);
 }
 
 .toast.toast-success .toast-progress {
   background-color: #2ecc71;
 }
 
-@keyframes slideInRight {
+@keyframes slideInDown {
   0% {
-    transform: translateX(110%);
+    transform: translateY(-100%); /* Start from above the viewport */
   }
   75% {
-    transform: translateX(-10%);
+    transform: translateY(10%); /* Move a little below the viewport */
   }
   100% {
-    transform: translateX(0%);
+    transform: translateY(0); /* Final position */
   }
 }
-@keyframes slideOutRight {
+@keyframes slideOutUp {
   0% {
-    transform: translateX(0%);
+    transform: translateY(0); /* Start from the current position */
   }
   25% {
-    transform: translateX(-10%);
+    transform: translateY(10%); /* Move a little below the viewport */
   }
   100% {
-    transform: translateX(110%);
+    transform: translateY(-100%); /* Slide out above the viewport */
   }
 }
 @keyframes fadeOut {
@@ -248,16 +275,22 @@ input:invalid, textarea:invalid {
 }
 @media screen and (min-width: 600px) {
   .container {
-    max-width: 1440px;
+    max-width: 780px;
     width: 100%;
   }
   .name-container {
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
     width: 100%;
   }
   .name-container .form-group {
-    width: 48%;
+    margin: 0;
+    width: 49%;
+  }
+  .form-group {
+    padding: 0.75rem;
+    margin: 0;
   }
   .radio-container {
     display: flex;
@@ -267,6 +300,7 @@ input:invalid, textarea:invalid {
   }
   .radio-container .radio-class {
     width: 48%;
+    gap: 10px;
   }
   .consent-container {
     width: 100%;

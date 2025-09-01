@@ -60,7 +60,7 @@
                         <legend>Query Type</legend>
                         <div class="radio-container">
                             
-                            <div class="radio-class">
+                            <div class="radio-class general-container">
                                 <input
                                  aria-describedby="query-type-error"
                                  aria-invalid="false"
@@ -68,7 +68,7 @@
                                 <label for="general">General Enquiry</label>
                             </div>
                             
-                            <div class="radio-class">
+                            <div class="radio-class support-container">
                             <input
                              aria-describedby="query-type-error"
                              aria-invalid="false"
@@ -100,11 +100,13 @@
         </div>
 
         <div class="consent-container">
-            <input 
-            aria-describedby="consent-error"
-            aria-invalid="false"
-            type="checkbox" id="consent" name="consent" required>
-            <label for="consent">I consent to being contacted by the team</label>
+            <div class="consent-content">
+                <input 
+                aria-describedby="consent-error"
+                aria-invalid="false"
+                type="checkbox" id="consent" name="consent" required>
+                <label for="consent">I consent to being contacted by the team</label>
+            </div>
             <span class="error-message">To submit this form, you must consent</span>
         </div>
 

@@ -43,6 +43,8 @@ h1{
 }
 
 .container{
+    position: relative;
+    top: 4.5rem;
     max-width: 500px;
     background-color: $font-white;
     padding: 1.25rem 1.5rem; ;
@@ -63,9 +65,10 @@ input:focus, textarea:focus{
     outline: 1px solid $font-green-600;
     transition: border 0.2 ease, box-shadow 0.2s ease;
 }
-input:invalid, textarea:invalid{
+input.invalid, textarea.invalid{
     outline: 1px solid $font-red;
     transition: border 0.2 ease, box-shadow 0.2s ease;
+    
 }
 
 .form-group{
@@ -83,7 +86,7 @@ input:invalid, textarea:invalid{
         font-size: 1rem;
         font-family: $font-stack;
         font-weight: $font-medium;
-        color: $font-grey-500;
+        color: $font-grey-900;
     }
     textarea{
         resize: vertical;
@@ -91,27 +94,44 @@ input:invalid, textarea:invalid{
     }
 }
 
-.radio-class{
+.radio-class {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem; // match .form-group padding
     border: 1px solid $font-grey-500;
     border-radius: 5px;
-    padding: 1rem;
-    margin: 0.5rem 0;
-    input{
-        margin-right: 0.5rem; 
+    margin: 0.75rem 0; // match vertical spacing
+    width: 100%; // ensure full width inside container
+
+    input {
+        margin-right: 0.5rem;
     }
-    label::after{
-        content: none;
+
+    label {
+        margin: 0;
     }
- }   
+}
+
+.general-container,
+.support-container {
+  background-color: white;
+  outline: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.general-container.selected,
+.support-container.selected {
+  background-color: $font-green-200;
+  outline: 1px solid $font-green-600;
+}
+
 .error-message{
     color: $font-red;
     margin-top: 0.5rem;
     display: none;
 }
  .consent-container{
-    display: flex;
-    align-items: center;
-    margin: 1.5rem 0;
+    padding-left: 0.5rem;
 
    input[type="checkbox"] {
   -webkit-appearance: none;
@@ -150,6 +170,7 @@ input[type="checkbox"]:checked::before {
     }
  }
 
+
 .submit-button{
     background-color: $font-green-600;
     color: $font-white;
@@ -165,16 +186,16 @@ input[type="checkbox"]:checked::before {
 
 .toast {
     position: fixed;
-    top: 25px;
-    right: 25px;
-    max-width: 300px;
+    top: 15px;
+    margin: 0 auto;
+    max-width: 500px;
     background: #fff;
-    padding: 0.5rem;
+    padding: 1.25rem;
     border-radius: 4px;
     box-shadow: -1px 1px 10px
         rgba(0, 0, 0, 0.3);
     z-index: 1023;
-    animation: slideInRight 0.3s
+    animation: slideInDown 0.3s
             ease-in-out forwards,
         fadeOut 0.5s ease-in-out
             forwards 3s;
@@ -182,7 +203,7 @@ input[type="checkbox"]:checked::before {
 }
 
 .toast.closing {
-    animation: slideOutRight 0.5s
+    animation: slideOutDown 0.5s
         ease-in-out forwards;
 }
 
@@ -200,24 +221,37 @@ input[type="checkbox"]:checked::before {
 
 .toast-content-wrapper {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+}
+.toast-header{
+    display: flex;
+    padding: 0.25rem;
     align-items: center;
 }
 
 .toast-icon {
-    padding: 0.35rem 0.5rem;
-    font-size: 1.5rem;
+    // padding: 0.35rem 0.5rem;
+    // font-size: 1.5rem;
+    margin-right: 0.35rem;
+
 }
 
 .toast-message {
     flex: 1;
-    font-size: 0.9rem;
-    color: #000000;
-    padding: 0.5rem;
+    font-size: 1rem;
+    color: white;
+    font-weight: bold;
+    font-size: large;
+}
+.toast-paragraph {
+    flex: 1;
+    font-size: 1rem;
+    color: $font-green-200;
+
 }
 
 .toast.toast-success {
-    background: #95eab8;
+    background: $font-grey-900;
 }
 
 .toast.toast-success .toast-progress {
@@ -225,33 +259,35 @@ input[type="checkbox"]:checked::before {
 }
 
 
-@keyframes slideInRight {
+@keyframes slideInDown {
     0% {
-        transform: translateX(110%);
+        transform: translateY(-100%); /* Start from above the viewport */
     }
 
     75% {
-        transform: translateX(-10%);
+        transform: translateY(10%); /* Move a little below the viewport */
     }
 
     100% {
-        transform: translateX(0%);
+        transform: translateY(0); /* Final position */
     }
 }
 
-@keyframes slideOutRight {
+
+@keyframes slideOutUp {
     0% {
-        transform: translateX(0%);
+        transform: translateY(0); /* Start from the current position */
     }
 
     25% {
-        transform: translateX(-10%);
+        transform: translateY(10%); /* Move a little below the viewport */
     }
 
     100% {
-        transform: translateX(110%);
+        transform: translateY(-100%); /* Slide out above the viewport */
     }
 }
+
 
 @keyframes fadeOut {
     0% {
@@ -275,17 +311,24 @@ input[type="checkbox"]:checked::before {
 
 @media screen and (min-width: 600px) {
     .container{
-        max-width:1440px;
+        max-width:780px;
         width: 100%; 
     }
     .name-container{
         display: flex;
+        flex-direction: row;
         justify-content: space-between;
         width: 100%;
+        .form-group{
+            margin: 0;
+            width: 49%;
+        }
     }
-    .name-container .form-group{
-        width: 48%;
+    .form-group{
+        padding: 0.75rem;
+        margin: 0;
     }
+   
     .radio-container{
         display: flex;
         flex-direction: row;
@@ -294,6 +337,7 @@ input[type="checkbox"]:checked::before {
     }
     .radio-container .radio-class{
         width: 48%;
+        gap: 10px;
     }
     .consent-container{
         width: 100%;
