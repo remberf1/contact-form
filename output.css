@@ -1,0 +1,279 @@
+@charset "UTF-8";
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Karla";
+  font-size: 16px;
+  font-weight: 400;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+label::after {
+  content: "*";
+  color: hsl(169, 82%, 27%);
+  margin-left: 0.5rem;
+}
+
+body {
+  background-color: hsl(148, 38%, 91%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem 0.5rem;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+  padding: 0;
+  color: hsl(187, 24%, 22%);
+}
+
+.container {
+  max-width: 500px;
+  background-color: hsl(0, 0%, 100%);
+  padding: 1.25rem 1.5rem;
+  border-radius: 10px;
+}
+
+fieldset {
+  border: none;
+  padding: 0;
+}
+
+legend::after {
+  content: "*";
+  color: hsl(169, 82%, 27%);
+  margin-left: 0.5rem;
+}
+
+input:focus, textarea:focus {
+  outline: 1px solid hsl(169, 82%, 27%);
+  transition: border 0.2 ease, box-shadow 0.2s ease;
+}
+
+input:invalid, textarea:invalid {
+  outline: 1px solid hsl(0, 66%, 54%);
+  transition: border 0.2 ease, box-shadow 0.2s ease;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin: 1.5rem 0;
+}
+.form-group label {
+  margin-bottom: 0.5rem;
+  color: hsl(187, 24%, 22%);
+}
+.form-group input, .form-group textarea {
+  padding: 1rem;
+  border: 1px solid hsl(187, 24%, 22%);
+  border-radius: 5px;
+  font-size: 1rem;
+  font-family: "Karla";
+  font-weight: 400;
+  color: hsl(186, 15%, 59%);
+}
+.form-group textarea {
+  resize: vertical;
+  padding: 1rem;
+}
+
+.radio-class {
+  border: 1px solid hsl(186, 15%, 59%);
+  border-radius: 5px;
+  padding: 1rem;
+  margin: 0.5rem 0;
+}
+.radio-class input {
+  margin-right: 0.5rem;
+}
+.radio-class label::after {
+  content: none;
+}
+
+.error-message {
+  color: hsl(0, 66%, 54%);
+  margin-top: 0.5rem;
+  display: none;
+}
+
+.consent-container {
+  display: flex;
+  align-items: center;
+  margin: 1.5rem 0;
+}
+.consent-container input[type=checkbox] {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: #fff;
+  border: 2px solid hsl(186, 15%, 59%);
+  width: 1rem;
+  height: 1rem;
+  display: inline-grid;
+  place-content: center;
+  cursor: pointer;
+  border-radius: 0;
+  margin-right: 1rem;
+  transition: border-color 0.2s ease;
+}
+.consent-container input[type=checkbox]::before {
+  content: "✔";
+  font-size: 0.75rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  transition: transform 0.2s ease-in-out;
+}
+.consent-container input[type=checkbox]:checked::before {
+  transform: scale(1);
+  background-color: hsl(169, 82%, 27%);
+  height: 1rem;
+  width: 1rem;
+}
+.consent-container label {
+  max-width: 16rem;
+}
+
+.submit-button {
+  background-color: hsl(169, 82%, 27%);
+  color: hsl(0, 0%, 100%);
+  padding: 1rem;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.toast {
+  position: fixed;
+  top: 25px;
+  right: 25px;
+  max-width: 300px;
+  background: #fff;
+  padding: 0.5rem;
+  border-radius: 4px;
+  box-shadow: -1px 1px 10px rgba(0, 0, 0, 0.3);
+  z-index: 1023;
+  animation: slideInRight 0.3s ease-in-out forwards, fadeOut 0.5s ease-in-out forwards 3s;
+  transform: translateX(110%);
+}
+
+.toast.closing {
+  animation: slideOutRight 0.5s ease-in-out forwards;
+}
+
+.toast-progress {
+  position: absolute;
+  display: block;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  width: 100%;
+  background: #b7b7b7;
+  animation: toastProgress 3s ease-in-out forwards;
+}
+
+.toast-content-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.toast-icon {
+  padding: 0.35rem 0.5rem;
+  font-size: 1.5rem;
+}
+
+.toast-message {
+  flex: 1;
+  font-size: 0.9rem;
+  color: #000000;
+  padding: 0.5rem;
+}
+
+.toast.toast-success {
+  background: #95eab8;
+}
+
+.toast.toast-success .toast-progress {
+  background-color: #2ecc71;
+}
+
+@keyframes slideInRight {
+  0% {
+    transform: translateX(110%);
+  }
+  75% {
+    transform: translateX(-10%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+@keyframes slideOutRight {
+  0% {
+    transform: translateX(0%);
+  }
+  25% {
+    transform: translateX(-10%);
+  }
+  100% {
+    transform: translateX(110%);
+  }
+}
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes toastProgress {
+  0% {
+    width: 100%;
+  }
+  100% {
+    width: 0%;
+  }
+}
+@media screen and (min-width: 600px) {
+  .container {
+    max-width: 1440px;
+    width: 100%;
+  }
+  .name-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  .name-container .form-group {
+    width: 48%;
+  }
+  .radio-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+  }
+  .radio-container .radio-class {
+    width: 48%;
+  }
+  .consent-container {
+    width: 100%;
+  }
+  .consent-container label {
+    max-width: 55rem;
+  }
+}
+
+/*# sourceMappingURL=output.css.map */
